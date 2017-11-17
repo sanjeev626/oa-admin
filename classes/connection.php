@@ -1,5 +1,5 @@
 <?php
-if($_SERVER['HTTP_HOST'] == 'localhost' || $_SERVER['HTTP_HOST'] == '127.0.0.1')
+if($_SERVER['HTTP_HOST'] == 'admin.onlineaushadhi.dev' || $_SERVER['HTTP_HOST'] == '127.0.0.1')
 {
 	define("DBSERVER","localhost");
 	define("DBUSER","root");
@@ -11,9 +11,12 @@ else
 	define("DBSERVER","localhost");
 	/*define("DBUSER","onlineau_pharmac");
 	define("DBPASSW","oRefXD+KF;BB");
-	define("DBNAME","onlineau_pharmacy");*/
+	define("DBNAME","onlineau_pharmacy");
 	define("DBUSER","onlineau_demousr");
 	define("DBPASSW","kfkMJ752]J;L");
-	define("DBNAME","onlineau_demo");
+	define("DBNAME","onlineau_demo");*/
+	define("DBUSER","onlineaushadhi");
+	define("DBPASSW","");
+	define("DBNAME","root");
 }
 ?>
