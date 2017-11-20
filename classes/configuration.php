@@ -2,10 +2,10 @@
 // client
 define("ACTIONNAME","manager");
 define("URLPATH","index.php?".ACTIONNAME."=");
-if($_SERVER['HTTP_HOST'] == 'localhost' || $_SERVER['HTTP_HOST'] == '127.0.0.1')
+if($_SERVER['HTTP_HOST'] == 'admin.onlineaushadhi.dev' || $_SERVER['HTTP_HOST'] == '127.0.0.1')
 {
-	define("SITEROOT","http://localhost/oaoldadmin.dev/");
-	define("SITEROOTADMIN","http://localhost/oaoldadmin.dev/");
+	define("SITEROOT","http://admin.onlineaushadhi.dev/");
+	define("SITEROOTADMIN","http://admin.onlineaushadhi.dev/");
 	define("SITEROOTDOC",$_SERVER['DOCUMENT_ROOT']."/");
 }
 else

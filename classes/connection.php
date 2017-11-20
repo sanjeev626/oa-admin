@@ -4,7 +4,7 @@ if($_SERVER['HTTP_HOST'] == 'admin.onlineaushadhi.dev' || $_SERVER['HTTP_HOST'] 
 	define("DBSERVER","localhost");
 	define("DBUSER","root");
 	define("DBPASSW","");
-	define("DBNAME","onlineau_demo");
+	define("DBNAME","onlineaushadhi");
 }
 else
 {

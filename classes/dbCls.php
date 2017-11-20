@@ -1224,6 +1224,23 @@ class mydb{
       return $text;
     }
 
+    function getStock($medicine_id,$total_quantity)
+    {
+    	$rasStock1 = $this->getArray('id, stock-sales as remaining_quantity','tbl_stock','stock>sales AND medicine_id="'.$medicine_id.'" ORDER BY expiry_date ASC LIMIT 1');
+    	$remaining_quantity1 = $rasStock1['remaining_quantity'];
+    	if($remaining_quantity1>$total_quantity)
+    	{
+    		$quantity1 = $total_quantity;
+    		$stock_id1 = $rasStock1['id'];
+    	}    		
+    	else
+    	{
+    		$rasStock2 = $this->getArray('id, stock-sales as remaining_quantity','tbl_stock','stock>sales AND id!='.$stock_id1.' AND medicine_id="'.$medicine_id.'" ORDER BY expiry_date ASC LIMIT 1');
+    		$remaining_quantity2 = $rasStock2['remaining_quantity'];
+    		$quantity2 = $total_quantity;
+    		$stock_id2 = $rasStock2['id'];
+    	}
+    }
 }
 
 ?>

@@ -36,10 +36,11 @@ while ($checkoutorder = $mydb->fetch_array($result1))
 	$data = '';
 	$data['sales_id'] = $sales_id;
 	$data['medicine_id'] = $checkoutorder['medicine_id'];
+	$data['stock_id'] = $checkoutorder['stock_id'];
 	$data['medicine_name'] = $checkoutorder['medicine_name'];
 	$data['medicine_type']=$checkoutorder['medicine_type'];
-	$data['quantity'] = $checkoutorder['quantity'];
 	$data['refill_day'] = $checkoutorder['refill_day'];
+	$data['quantity'] = $checkoutorder['quantity'];
 	// $data['Rate']=$checkoutorder['Rate'];
 	// $data['total_amount']=$checkoutorder['total_amount'];
 

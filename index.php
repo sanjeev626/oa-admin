@@ -1,6 +1,6 @@
 <?php
 session_start();
-error_reporting(0);
+//error_reporting(0);
 require_once("classes/call.php");
 if(isset($_SESSION[ADMINUSER]))
 	$userid = $_SESSION[ADMINUSER];
