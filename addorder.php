@@ -3,11 +3,9 @@
 	error_reporting(0);
 	include('classes/call.php');
 	$id=$_POST['user_id'];
-	$medicinename_id = $_POST['medicinename'];
-	$aa = explode('-', $medicinename_id);
-	$stock_id = $aa['0'];
-	$medicinename = $aa['1'];
-	$medicine_id = $aa['2'];
+	$stock_id = $_POST['stock_id'];
+	$medicinename = $_POST['medicinename'];
+	$medicine_id = $_POST['medicine_id'];
 	$_SESSION['user_id'] =$_POST['user_id'];
 	$_SESSION['date_order'] =$_POST['date_order'];
 	$_SESSION['image_value']=$_POST['image_ids'];

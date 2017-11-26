@@ -1,0 +1,18 @@
+CREATE TABLE IF NOT EXISTS `tbl_tempsales` (
+  `id` int(11) NOT NULL,
+  `session_id` varchar(50) NOT NULL,
+  `client_id` bigint(20) NOT NULL,
+  `image_id` int(20) NOT NULL,
+  `date` date NOT NULL,
+  `delivery_date` date NOT NULL,
+  `refill_day` int(11) NOT NULL,
+  `memo` text NOT NULL,
+  `Refill_date` date NOT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `total_amount` float(10,2) NOT NULL,
+  `discount_percentage` float(10,2) NOT NULL,
+  `discount_amount` varchar(100) NOT NULL,
+  `net_amount` float(10,2) NOT NULL,
+  `order_status` int(11) NOT NULL DEFAULT '0',
+  `sales_type` enum('online','counter_sales') NOT NULL DEFAULT 'online'
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;

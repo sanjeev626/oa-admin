@@ -1,4 +1,12 @@
 <?php
+/*if(isset($_GET['new_order']))
+{
+    $buying_id = date(YmdHis).rand(111,999);
+    $_SESSION['buying_id'] = $buying_id;
+    $mydb->redirect(ADMINURLPATH.'order_manage');
+}
+$buying_id = $_SESSION['buying_id'];
+echo "<br>buying_id = ".$buying_id;*/
 if(isset($_GET['reorder_id']))
 {
     $id=$_GET['reorder_id'];
@@ -123,8 +131,10 @@ if(isset($_GET['sales_type'])&& $_GET['sales_type']=="counter_sales")
         ({
             source:'liststock_ajax.php',
             minLength:1,
-            success:function(data){
-                $('#result').html(data);
+            select: function (e, ui) {
+              $('#result').html(e);
+              $("#stock_id").val(ui.item.stock_id);
+              $("#medicine_id").val(ui.item.medicine_id);                
             }
         });
         //for insert data in tempory table ;
@@ -360,6 +370,8 @@ if(isset($_GET['sales_type'])&& $_GET['sales_type']=="counter_sales")
                 Regular </label>
             </div>
             <div class="col-md-1 col-sm-1 col-xs-1">
+              <input type="hidden" id="medicine_id" name="medicine_id" value="" />
+              <input type="hidden" id="stock_id" name="stock_id" value="" />
               <button type="submit" class="btn btn-default next" id="nextid">Add Order</button>
             </div>
           </div>
@@ -398,10 +410,22 @@ if(isset($_GET['sales_type'])&& $_GET['sales_type']=="counter_sales")
             $result1 = $mydb->getQuery('*','tbl_temporder','session_id="'.$user_id_session.'"');
             while($order = $mydb->fetch_array($result1))
             {
-              $order_id = $order['id'];
-            
+            $order_id = $order['id'];
+            $countStock = $mydb->getSum('stock-sales','tbl_stock','medicine_id="'.$order['medicine_id'].'" AND stock>sales ORDER BY expiry_date ASC');
+            //echo $mydb->getSum('stock-sales','tbl_stock','medicine_id="'.$order['medicine_id'].'" AND stock>sales ORDER BY expiry_date ASC','1');
+            if($countStock>=$order['quantity'])
+            {
               $sp_per_tab = $mydb->getValue('sp_per_tab','tbl_stock','id="'.$order['stock_id'].'"');
               $total = $order['quantity']*$sp_per_tab;
+            }
+            else
+            {
+                if(empty($countStock))
+                    $sp_per_tab = "<span style='color:red; font-weight:bold;'>Out of Stock</span>";
+                else    
+                    $sp_per_tab = $countStock." only Available";
+                $total = 0;
+            }
             $gtotal=$gtotal+$total;
             ?>
             <div class="row">
@@ -435,10 +459,8 @@ if(isset($_GET['sales_type'])&& $_GET['sales_type']=="counter_sales")
             <hr/>
           </div>
         </form>
-        <div class="row">
+        <div class="row clearfix" style="margin-bottom: 20px; margin-right: 70px; text-align: right;">
           <button type="submit" name="checkout" id="checkout" class="btn btn-dsefault" <?php if($count==0) echo "disabled";?>>Submit</button>
-        </div>
-        <div class="row clearfix" style="float:right;margin-top:-50px;margin-right:25px;">
           <button type="submit" name="reset_button" id="reset" class="btn btn-dsefault" onClick="removeMedicine('<?php echo $user_id_session;?>','clear')" <?php if($count==0) echo "disabled";?>>Clear All</button>
         </div>
       </div>
@@ -476,39 +498,21 @@ if(isset($_GET['sales_type'])&& $_GET['sales_type']=="counter_sales")
 </div>
 </div>
 <script>
-
     $(document).ready(function () {
-
         $('#menu').on('click', 'a', function () {
-
             $('.current').not($(this).closest('li').addClass('current')).removeClass('current');
-
             // fade out all open subcontents
-
             $('.pbox:visible').hide(600);
-
             // fade in new selected subcontent
-
             $('.pbox[id=' + $(this).attr('data-id') + ']').show(600);
-
         });
 
-
-
         var client_id = $("#user_id").val();
-
         if(client_id=="1087")
-
         {
-
             value = 'counter_sales';
-
             $("input[name=sales_type][value=" + value + "]").attr('checked', 'checked');
-
         }
-
-            //alert(client_id);
-
+           //alert(client_id);
     });
-
-</script> 
+</script>
